@@ -2,7 +2,6 @@ package jpabook.jpa_bookshop.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 /*
@@ -11,13 +10,23 @@ import java.util.Objects;
 * */
 
 @Embeddable
-@NoArgsConstructor
 @Getter
 public class Address {
     private String city;
     private String street;
     private String code;
 
+    /*기본 생성자는 public, protected 를 하는 것이 좋다.
+    * why: JPA 구현체인 hibernate 에서 제공하는 다양한 기능을 활용하기 위해서, 또한
+    * 안전성 측면에서 protected 를 사용하는 것이 좋다. */
+    protected Address() {
+    }
+
+    public Address(String city, String street, String code) {
+        this.city = city;
+        this.street = street;
+        this.code = code;
+    }
 
     @Override
     public boolean equals(Object o) {
