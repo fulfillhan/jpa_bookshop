@@ -60,7 +60,7 @@ public class Order {
 
     //생성 메서드
     /*해당 메서드는 생성만 관련된 기능을 담는다. 응집력이 높다*/
-    public Order createOrder(Member member,Delivery delivery,List<OrderItem> orderItems){
+    public static Order createOrder(Member member,Delivery delivery,List<OrderItem> orderItems){
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
