@@ -1,7 +1,9 @@
 package jpabook.jpa_bookshop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ import static jakarta.persistence.FetchType.*;
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
@@ -41,6 +44,12 @@ public class Order {
     private int orderPrice;
 
     private int count;
+
+    /*
+    * 기본 생성자를 다른 클래스에서 무분별하게 생성하지 않도록 한다.
+    *
+    protected Order() { //protected:
+    }*/
 
     //연관관계 메서드
     public void setMember(Member member){
@@ -94,7 +103,5 @@ public class Order {
         }
         return totalPrice;
     }
-
-
 
 }
