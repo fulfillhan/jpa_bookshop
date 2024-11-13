@@ -8,11 +8,9 @@ import jpabook.jpa_bookshop.repository.ItemRepository;
 import jpabook.jpa_bookshop.repository.MemberRepository;
 import jpabook.jpa_bookshop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
