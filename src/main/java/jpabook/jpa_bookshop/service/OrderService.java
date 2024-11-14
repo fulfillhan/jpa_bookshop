@@ -3,13 +3,18 @@ package jpabook.jpa_bookshop.service;
 import jpabook.jpa_bookshop.domain.Delivery;
 import jpabook.jpa_bookshop.domain.Member;
 import jpabook.jpa_bookshop.domain.Order;
+import jpabook.jpa_bookshop.domain.OrderSearch;
 import jpabook.jpa_bookshop.domain.item.Item;
 import jpabook.jpa_bookshop.repository.ItemRepository;
 import jpabook.jpa_bookshop.repository.MemberRepository;
 import jpabook.jpa_bookshop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -58,9 +63,11 @@ public class OrderService {
     /*
     * 주문 검색
     * */
-  /*  public List<Order> findOrders(Order order){
-
-    }*/
+    public List<Order> findOrders(OrderSearch order){
+        List<Order> orders = new ArrayList<>();
+        //변경 필요
+        return orders;
+    }
 
 
 }
