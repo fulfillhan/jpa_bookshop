@@ -2,6 +2,7 @@ package jpabook.jpa_bookshop.controller;
 
 import jpabook.jpa_bookshop.domain.item.Book;
 import jpabook.jpa_bookshop.domain.item.Item;
+import jpabook.jpa_bookshop.dto.UpdateItemDTO;
 import jpabook.jpa_bookshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -66,15 +67,13 @@ public class ItemController {
 
     @PostMapping("/items/{itemId}/edit")
     public String update(@PathVariable Long itemId, @ModelAttribute BookForm form){
-        Book book = new Book();
-        book.setId(itemId);
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        UpdateItemDTO dto = new UpdateItemDTO();
+        dto.setName(form.getName());
+        dto.setPrice(form.getPrice());
+        dto.setStockQuantity(form.getStockQuantity());
 
-        itemService.saveItem(book);
+        itemService.updateItem(itemId,dto);
+
         return "redirect:/items"; //목록을 되돌아가기
     }
 }
