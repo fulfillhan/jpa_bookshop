@@ -45,8 +45,6 @@ public class OrderRepository {
                 .setMaxResults(1000) //최대 1000건
                 .getResultList();*//*
 
-
-
         return resultList;
         
     }
