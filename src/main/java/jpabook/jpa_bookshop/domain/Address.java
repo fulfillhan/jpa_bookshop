@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Address {
     private String city;
     private String street;
-    private String code;
+    private String zipcode;
 
     /*기본 생성자는 public, protected 를 하는 것이 좋다.
     * why: JPA 구현체인 hibernate 에서 제공하는 다양한 기능을 활용하기 위해서, 또한
@@ -22,10 +22,10 @@ public class Address {
     protected Address() {
     }
 
-    public Address(String city, String street, String code) {
+    public Address(String city, String street, String zipcode) {
         this.city = city;
         this.street = street;
-        this.code = code;
+        this.zipcode = zipcode;
     }
 
     @Override
@@ -33,11 +33,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getCode(), address.getCode());
+        return Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getZipcode(), address.getZipcode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCity(), getStreet(), getCode());
+        return Objects.hash(getCity(), getStreet(), getZipcode());
     }
 }

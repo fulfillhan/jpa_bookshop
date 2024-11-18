@@ -17,6 +17,7 @@ public class Book extends Item {
 
     public static Book createBook(BookForm form){
         Book book = new Book();
+        book.setId(form.getId());
         book.setName(form.getName());
         book.setIsbn(form.getIsbn());
         book.setAuthor(form.getAuthor());
