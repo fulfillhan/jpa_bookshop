@@ -54,4 +54,12 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    /*
+    * 회원 수정 : 변경 감지(dirty checking)사용해서 데이터 수정
+    * */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }

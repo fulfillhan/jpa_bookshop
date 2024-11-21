@@ -1,7 +1,6 @@
 # API 개발 주의사항
-`회원등록 API`
-# 🔥문제점 
-다음 코드의 문제는 무엇일까?
+# ✔️회원 등록
+
 ```
 @PostMapping("/api/V1/members")
 public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member){
@@ -14,10 +13,25 @@ static class CreateMemberResponse {
     private Long id;
     public CreateMemberResponse(Long name) {
         this.id = id;
+        
+        
     }
 }
 ```
-프레젠테이션 계층의 saveMemberV1() 의 파라미터 요청 값으로 엔티티가 직접 사용되었는데 검증 로직이 들어가있다.
+ - 프레젠테이션 계층의 saveMemberV1() 의 파라미터 요청 값으로 엔티티가 직접 사용되었는데 검증 로직이 들어가있다.
+
+# ✔️회원 조회
+```
+@GetMapping("/api/V1/members")
+    public List<Member> membersV1(){
+        return memberService.findMembers();
+    }
+```
+- 응답 값으로 `List<Member>` 엔티티를 직접 노출했다.
+
+# 🔥문제점
+상위의 코드의 문제는 무엇일까?
+-> 엔티티를 직접 노출하게 된 것이다.
 
 ## 엔티티를 직접 사용한 것이 왜 문제일까?
 1. 해당 클래스와 엔티티 객체는 강한 연관관계를 갖게된다. 결합성이 높아진다는 것이다.
@@ -28,8 +42,10 @@ static class CreateMemberResponse {
 
 ⭐여로모로 `사이드 이펙트` 발생한다!!
 
+**⭐추가로 회원 조회시 컬렉션을 직접 반환하면 향후 API 스펙을 변경하기 어렵다.-> 별도의 Result 클래스와 같이 리스트를 감싸서 클래스 생성해서 해결한다.**
 # 해결책
 API 스펙에 맞는 DTO 객체를 생성해서 사용해라!
+# ✔️회원 등록
 ```
    @PostMapping("/api/V2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request){
@@ -45,6 +61,28 @@ API 스펙에 맞는 DTO 객체를 생성해서 사용해라!
         @NotEmpty  //엔티티가 아닌 dto에서 검증설정을 할 수 있다.
         private String name;
 
+    }
+```
+# ✔️회원 조회
+```
+ @GetMapping("/api/V2/members")
+    public Result membersV2(){
+
+        //엔티티 - > dto 로 변환해라
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = new ArrayList<>();
+        for (Member findMember : findMembers) {
+            MemberDto memberDto = new MemberDto(findMember.getName());
+            collect.add(memberDto);
+        }
+        return new Result(collect);
+    }
+    
+    //리스트를 감싸서 클래스 생성한다. 컬렉션을 직접 반환하지 않기!
+     @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
     }
 ```
 - 엔티티와 프레젠테이션 객체를 분리한다.
