@@ -22,7 +22,7 @@ public class OrderController {
     private final ItemService itemService;
     private final OrderService orderService;
 
-    @GetMapping("/orders")
+    @GetMapping("/order")
     public String createForm(Model model){
         List<Member> members = memberService.findMembers();
         List<Item> items = itemService.findItems();
@@ -36,7 +36,7 @@ public class OrderController {
     * 상품 주문
     * */
 
-    @PostMapping("/orders")
+    @PostMapping("/order")
     public String order(@RequestParam Long memberId, @RequestParam Long itemId,
                         @RequestParam int count){
 
@@ -46,7 +46,7 @@ public class OrderController {
 
 
     /*
-    *전체 주문 목록 todo
+    *전체 주문 목록
     * */
     @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model){

@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
-    private ItemService itemService;
+    private final ItemService itemService;
 
     /*
     * 상품 등록
@@ -43,14 +43,14 @@ public class ItemController {
     public String list(Model model){
         List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
-        return "itmes/itemList";
+        return "items/itemList";
     }
 
     /*
     * 상품 수정
     * */
-    @GetMapping("/items/{itemId}/edit")
-    public String updateItemForm(Model model, @PathVariable Long itemId){
+    @GetMapping("/items/{id}/edit")
+    public String updateItemForm(Model model, @PathVariable("id") Long itemId){
         Book item = (Book) itemService.findOne(itemId);
 
         BookForm form = new BookForm();
