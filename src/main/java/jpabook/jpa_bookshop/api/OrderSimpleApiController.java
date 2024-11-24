@@ -52,8 +52,18 @@ public class OrderSimpleApiController {
                 .collect(toList()); // 반복하면서 다시 list로 변경해서 생성한다.
         return result;
     }
+ /*
+    V3
+    엔티티-> dto 로 변환(fetch join사용하여 쿼리 1번만 생성)
 
+    * */
 
+    @GetMapping("/api/V3/simple-orders")
+    public List<SimpleOrderDto> ordersV3(){
+         List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        return orders.stream().map(order -> new SimpleOrderDto(order))
+                .collect(toList());
+    }
     //dto 클래스 생성
     @Data
     static class SimpleOrderDto {
@@ -61,8 +71,8 @@ public class OrderSimpleApiController {
         private String name;
         private LocalDateTime orderDate;
         private OrderStatus orderStatus;
-        private Address address;
 
+        private Address address;
         /*
         * order를 매개변수로 가져와서 바로 생성자를 통해 변환
         * */
@@ -73,5 +83,7 @@ public class OrderSimpleApiController {
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
         }
+
     }
+
 }
