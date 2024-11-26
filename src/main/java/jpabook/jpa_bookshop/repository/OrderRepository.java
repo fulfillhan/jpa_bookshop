@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.*;
 import jpabook.jpa_bookshop.domain.Member;
 import jpabook.jpa_bookshop.domain.Order;
 import jpabook.jpa_bookshop.domain.OrderSearch;
+import jpabook.jpa_bookshop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -78,5 +79,12 @@ public class OrderRepository {
         return em.createQuery("select o from Order o " +
                 "join fetch o.member m " +
                 "join fetch o.delivery d", Order.class).getResultList();
+    }
+
+    public List<OrderSimpleQueryRepository> findOrderDto() {
+        em.createQuery("select new jpabook.jpa_bookshop.repository.OrderSimpleDto(o.id,m.name,o.orderDate,o.status,o.address) from Order o " +
+                "join o.member m" +
+                "join o.delivery d", OrderSimpleDto.class);
+        return null;
     }
 }

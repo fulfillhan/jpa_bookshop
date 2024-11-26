@@ -5,16 +5,15 @@ import jpabook.jpa_bookshop.domain.Order;
 import jpabook.jpa_bookshop.domain.OrderSearch;
 import jpabook.jpa_bookshop.domain.OrderStatus;
 import jpabook.jpa_bookshop.repository.OrderRepository;
+import jpabook.jpa_bookshop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
-import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -26,6 +25,7 @@ import static java.util.stream.Collectors.*;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     /*
     V1
@@ -64,6 +64,19 @@ public class OrderSimpleApiController {
         return orders.stream().map(order -> new SimpleOrderDto(order))
                 .collect(toList());
     }
+    /*
+    V4
+    jpa -> dto 로 바로 조회
+    쿼리 1번 호출
+    select 절에 원하는 데이터만 조회할 수 있다.
+    리퍼지토리는 순수한 엔티티 조회용도로 사용해야 한다.
+    쿼리 서비스 같은 경우에는 따로 분리하는 것이 유지보수에 낫다.
+   * */
+    @GetMapping("/api/V4/simple-orders")
+    public List<OrderSimpleQueryRepository> ordersV4(){
+        return orderSimpleQueryRepository.findOrderDto();
+    }
+
     //dto 클래스 생성
     @Data
     static class SimpleOrderDto {
