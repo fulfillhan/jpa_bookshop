@@ -5,6 +5,7 @@ import jpabook.jpa_bookshop.domain.Order;
 import jpabook.jpa_bookshop.domain.OrderSearch;
 import jpabook.jpa_bookshop.domain.OrderStatus;
 import jpabook.jpa_bookshop.repository.OrderRepository;
+import jpabook.jpa_bookshop.repository.order.simplequery.OrderSimpleQueryDto;
 import jpabook.jpa_bookshop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
 
@@ -73,7 +74,7 @@ public class OrderSimpleApiController {
     쿼리 서비스 같은 경우에는 따로 분리하는 것이 유지보수에 낫다.
    * */
     @GetMapping("/api/V4/simple-orders")
-    public List<OrderSimpleQueryRepository> ordersV4(){
+    public List<OrderSimpleQueryDto> ordersV4(){
         return orderSimpleQueryRepository.findOrderDto();
     }
 
