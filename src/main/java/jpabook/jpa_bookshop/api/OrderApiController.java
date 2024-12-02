@@ -4,6 +4,7 @@ import jpabook.jpa_bookshop.domain.Order;
 import jpabook.jpa_bookshop.domain.OrderItem;
 import jpabook.jpa_bookshop.domain.OrderSearch;
 import jpabook.jpa_bookshop.repository.OrderRepository;
+import jpabook.jpa_bookshop.repository.order.query.OrderFlatDto;
 import jpabook.jpa_bookshop.repository.order.query.OrderQueryDto;
 import jpabook.jpa_bookshop.repository.order.query.OrderQueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -82,11 +83,21 @@ public class OrderApiController {
     }
 
     /*
-     * JPA->DTO 로 변환하기(성능 최적화하기)
+     * JPA->DTO 로 직접 조회하기(성능 최적화하기)
      * */
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> ordersV5(){
         return orderQueryRepository.findAllByDto_optimization();
+    }
+
+    /*
+    * JPA->DTO 로 직접조회하기, 플랫 데이터 최적화
+    * 쿼리 1번
+    * 페이징 불가능
+    * */
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDto> ordersV6(){
+        return orderQueryRepository.findAllByDto_flat();
     }
 
 
