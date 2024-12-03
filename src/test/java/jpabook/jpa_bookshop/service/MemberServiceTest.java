@@ -2,8 +2,7 @@ package jpabook.jpa_bookshop.service;
 
 import jakarta.persistence.EntityManager;
 import jpabook.jpa_bookshop.domain.Member;
-import jpabook.jpa_bookshop.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
+import jpabook.jpa_bookshop.repository.MemberRepositoryOld;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,8 @@ import static org.assertj.core.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepositoryOld memberRepository;
     @Autowired
     EntityManager em;
 
