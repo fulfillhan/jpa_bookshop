@@ -9,7 +9,7 @@ spring:
         driver-class-name: org.h2.Driver
 
     jpa:
-        hibernate:
+      hibernate:
           ddl-auto: create
         properties:
           hibernate:

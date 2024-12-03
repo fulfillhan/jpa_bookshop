@@ -2,6 +2,7 @@ package jpabook.jpa_bookshop.service;
 
 import jpabook.jpa_bookshop.domain.Member;
 import jpabook.jpa_bookshop.repository.MemberRepository;
+import jpabook.jpa_bookshop.repository.MemberRepositoryOld;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class MemberService {
     * setter 주입 :  변경 가능성이 있는 의존관계에 사용하는 것이 좋다. 불변성을 보장받지 못한다.
     * 생성자 주입: 1번 생성되기 때문에 불변성을 보장한다. 다른데서 사용하게 될때 컴파일오류로 데이터 누락방지한다.
     *     * */
+    //private final MemberRepositoryOld memberRepository;
     private final MemberRepository memberRepository;
 
     /*
@@ -51,7 +53,7 @@ public class MemberService {
     * 회원 단건 조회
     * */
     public Member findOne(Long memberId){
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 
     /*
@@ -59,7 +61,7 @@ public class MemberService {
     * */
     @Transactional
     public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
     }
 }

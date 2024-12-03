@@ -1,13 +1,12 @@
 package jpabook.jpa_bookshop.service;
 
-import jakarta.persistence.EntityManager;
 import jpabook.jpa_bookshop.domain.Delivery;
 import jpabook.jpa_bookshop.domain.Member;
 import jpabook.jpa_bookshop.domain.Order;
 import jpabook.jpa_bookshop.domain.OrderSearch;
 import jpabook.jpa_bookshop.domain.item.Item;
 import jpabook.jpa_bookshop.repository.ItemRepository;
-import jpabook.jpa_bookshop.repository.MemberRepository;
+import jpabook.jpa_bookshop.repository.MemberRepositoryOld;
 import jpabook.jpa_bookshop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -23,9 +22,9 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryOld memberRepository;
     private final ItemRepository itemRepository;
-    private final EntityManager em;
+
     /*
     * 주문하기
     * */
